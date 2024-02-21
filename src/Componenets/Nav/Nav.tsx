@@ -16,9 +16,10 @@ function Nav() {
       <div className="flexx" style={{ display: "flex", width: "100%", height: "80px", background: "slateblue", alignItems: "center", justifyContent: "flex-end" }}>
         <div className="links" style={{ textAlign: "center", marginRight: "50px", display: "flex" }}>
           <Link to="/" style={{ marginRight: "10px" }} ><p>Home</p></Link>
-          <Link to="/login"><p>Login</p></Link>
+          { !user? <Link to="/login"><p>Login</p></Link>:
+          <Link to="/createpost"><p>Create Post</p></Link>}
         </div>
-        {/* {user && (
+        {user && (
           <>
             <div style={{ display: "flex", alignItems: "center" }}>
               <p style={{ marginLeft: "5px", marginRight: "10px" }}>{user?.displayName}</p>
@@ -26,7 +27,7 @@ function Nav() {
               <button onClick={signOutUser}>Log Out</button>
             </div>
           </>
-        )} */}
+        )}
 
       </div>
     </div>

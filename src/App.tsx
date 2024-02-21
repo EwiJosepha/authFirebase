@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login';
 import { Main } from './Pages/Main';
 import Nav from './Componenets/Nav/Nav';
+import Createpost from './Pages/Createpost';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/"  element={<Main />} />
       <Route path="/"  element={<Main />} />
       <Route path="/login"  element={<Login />} />
+      <Route path="/createpost"  element={<Createpost />} />
     </Routes>
   </Router>
   );
