@@ -21,7 +21,7 @@ function Form() {
 
   const { register, handleSubmit,formState: {errors}, } = useForm<createFormData>({
     resolver: yupResolver(schema),
-  })
+    })
 
   const postRef =collection(db, "posts")
 
