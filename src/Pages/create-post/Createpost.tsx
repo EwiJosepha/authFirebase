@@ -1,9 +1,10 @@
 import React from 'react'
+import Form from './Form'
 
 function Createpost() {
   return (
     <div>
-      <h1>he</h1>
+     <Form />
     </div>
   )
 }

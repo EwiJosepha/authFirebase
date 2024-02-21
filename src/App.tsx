@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login';
 import { Main } from './Pages/Main';
 import Nav from './Componenets/Nav/Nav';
-import Createpost from './Pages/Createpost';
+import Createpost from './Pages/create-post/Createpost';
 
 function App() {
   return (
