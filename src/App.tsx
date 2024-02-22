@@ -5,7 +5,7 @@ import './App.css';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login';
-import { Main } from './Pages/Main';
+import { Main } from './Pages/main/Main';
 import Nav from './Componenets/Nav/Nav';
 import Createpost from './Pages/create-post/Createpost';
 

@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 
 
 interface createFormData{
@@ -14,6 +15,19 @@ interface createFormData{
 
 function Form() {
   const [user] = useAuthState(auth)
+  const navigate = useNavigate()
+
+  const styless = {
+    display:"flex",
+    background: "slateblue",
+    width: "100%",
+    height: "100%",
+    alignItems: "center", 
+    justifyContent: "center",
+    paddimg: "30px",
+    marginTop: "40px"
+  }
+  
   const schema = yup.object().shape({
     title: yup.string().required("You must add a title"),
     description: yup.string().required("ypu must add description")
@@ -30,13 +44,18 @@ function Form() {
     title: data.title,
     description : data.description,
     username: user?.displayName,
-    id: user?.uid,
+    userId: user?.uid,
 
    })
 
+   navigate("/")
+
   }
+
+ 
+
   return (
-    <div>
+    <div style={styless}>
       <form onSubmit={handleSubmit(onsubmitform)}>
         <input placeholder='Title..' {...register("title")} />
         <p style={{color: "red"}}>{errors.title?.message}</p>
