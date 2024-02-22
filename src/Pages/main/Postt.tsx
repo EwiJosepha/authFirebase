@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CreatePostList } from './Main'
-import { CollectionReference, DocumentData, addDoc, collection } from 'firebase/firestore'
+import { CollectionReference, DocumentData, addDoc, collection, query, where, getDocs } from 'firebase/firestore'
 import { auth, db } from '../../config/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
@@ -8,12 +8,26 @@ interface Props {
   post: CreatePostList 
 }
 
+interface Like {
+  userId : string
+}
+
 
 function Post(props: Props) {
+  const[postCount, setPostCount] = useState<number | null>(null)
   const{post} = props;
   const [user]= useAuthState(auth)
-  const likesRef =collection(db, "likess")
+  const likesRef =collection(db, "likes");
+  const likesDoc = query(likesRef, where("postId", "==", post.id))
+const getlikes = async() =>{
+ const data= await getDocs(likesDoc)
+ setPostCount(data.docs.length);
+ 
+}
 
+useEffect(()=>{
+  getlikes()
+},[])
   async function addLikes() {
   await addDoc (likesRef, {userId:user?.uid, postId: post.id})
   
@@ -39,7 +53,7 @@ function Post(props: Props) {
       <div className="footer">
         <p>@{post.username}</p>
         <button onClick={addLikes}>&#128077;</button>
-
+          {postCount && <p> Likes:{postCount} </p>}
       </div>
     </div>
   )
