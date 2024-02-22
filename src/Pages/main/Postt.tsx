@@ -14,14 +14,14 @@ interface Like {
 
 
 function Post(props: Props) {
-  const[postCount, setPostCount] = useState<number | null>(null)
+  const[like, setLike] = useState<Like[] | null>(null)
   const{post} = props;
   const [user]= useAuthState(auth)
   const likesRef =collection(db, "likes");
   const likesDoc = query(likesRef, where("postId", "==", post.id))
 const getlikes = async() =>{
  const data= await getDocs(likesDoc)
- setPostCount(data.docs.length);
+ setLike(data.docs.map((doc)=>({userId: doc.data().userId})));
  
 }
 
@@ -32,6 +32,10 @@ useEffect(()=>{
   await addDoc (likesRef, {userId:user?.uid, postId: post.id})
   
 }
+
+const hasuserLiked = like?.find((lik)=>{
+  lik.userId == user?.uid
+})
 
   const styles = {
     margin: "0 auto",
@@ -52,8 +56,8 @@ useEffect(()=>{
       </div>
       <div className="footer">
         <p>@{post.username}</p>
-        <button onClick={addLikes}>&#128077;</button>
-          {postCount && <p> Likes:{postCount} </p>}
+        <button onClick={addLikes}>{hasuserLiked ?  <>#128078;</> : <>#128077;</>}</button>
+          {like && <p> Likes:{like?.length} </p>}
       </div>
     </div>
   )
