@@ -20,8 +20,6 @@ function Form() {
   const styless = {
     display:"flex",
     background: "slateblue",
-    width: "100%",
-    height: "100%",
     alignItems: "center", 
     justifyContent: "center",
     paddimg: "30px",

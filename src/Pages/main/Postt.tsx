@@ -33,9 +33,9 @@ function Post(props: Props) {
 
   async function addLikes() {
     try {
-     const newDoc =  await addDoc(likesRef, { userId: user?.uid, postId: post.id })
+      const newDoc = await addDoc(likesRef, { userId: user?.uid, postId: post.id })
       if (user) {
-        setLike((prev) => prev ? [...prev, { userId: user?.uid, likeId: newDoc.id }] : [{ userId: user?.uid }])
+        setLike((prev) => prev ? [...prev, { userId: user?.uid, likeId: newDoc.id }] : [{ userId: user?.uid, likeId: newDoc.id }])
       }
     } catch (er) {
       console.log(er);
@@ -45,18 +45,18 @@ function Post(props: Props) {
   }
 
   async function removeLikes() {
-   
+
     try {
       const liketoDeletequerry = query(likesRef, where("postId", "==", post.id), where("userId", "==", user?.uid))
       const deleteddata = await getDocs(liketoDeletequerry)
       const likeId = deleteddata.docs[0].id
-      const likeToDelete= doc(db, "likes", likeId)
+      const likeToDelete = doc(db, "likes", likeId)
       await deleteDoc(likeToDelete)
-     
+
       if (user) {
-       setLike((prev)=> prev?.filter((like)=>(
-like.id === likeId
-       )))
+        setLike((prev) => prev && prev.filter((like) => (
+          like.likeId !== likeId
+        )))
       }
     } catch (er) {
       console.log(er);
@@ -66,7 +66,7 @@ like.id === likeId
   }
 
 
-const hasuserLiked = like?.find((lik) => (
+  const hasuserLiked = like?.find((lik) => (
     lik.userId == user?.uid
   ))
 
@@ -89,9 +89,9 @@ const hasuserLiked = like?.find((lik) => (
       </div>
       <div className="footer">
         <p>@{post.username}</p>
-        <button onClick={hasuserLiked ? removeLikes: addLikes}>
+        <button onClick={hasuserLiked ? removeLikes : addLikes}>
           {hasuserLiked ? <>&#128078;</> : <>&#128077;</>}{""}
-          </button>
+        </button>
         {like && <p> Likes:{like?.length} </p>}
       </div>
     </div>
