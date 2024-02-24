@@ -26,7 +26,7 @@ export const Main = () => {
   }, [])
   return (
     <>
-      <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "#fdegf"}}>
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "#fffeff"}}>
        <div>
         {postsList?.map((post)=>(
           <>
